@@ -24,26 +24,20 @@ import com.ufro.poke.entidades.torres.Torre3;
 public class PokeTower extends ApplicationAdapter implements Screen {
 	private static final float WORLD_WHIDTH=1280;
 	private static final float WORLD_HEIGHT=720;
-
 	private Camera cam;
 	private SpriteBatch batch;
 	private Box2DDebugRenderer box2d;
 	public World mundo;
 	private Viewport viewport;
 	private OrthographicCamera boxCam;
-
 	private Enemigo enemigo1;
 	private Enemigo enemigo2;
 	private Enemigo enemigo3;
 	private Enemigo enemigo4;
-
 	private Torre torre1;
 	private Torre torre2;
 	private Torre torre3;
-
 	private Stage stage;
-
-
 	public int contGame=10;
 	private int temp = 50;
 
@@ -56,8 +50,6 @@ public class PokeTower extends ApplicationAdapter implements Screen {
 
 		batch = new SpriteBatch();
 		mundo = new World(new Vector2(0,0),true);
-
-		//se instancian el enemigo y la torre
 
 		enemigo1 = new Enemigo1(this,50,620f,"assets/entidades/enemigos/enemigo1.png",160,3);
 		enemigo2 = new Enemigo2(this, -100f,620f,"assets/entidades/enemigos/enemigo2.png",350,3);
@@ -77,14 +69,9 @@ public class PokeTower extends ApplicationAdapter implements Screen {
 		box2d = new Box2DDebugRenderer();
 		boxCam = (OrthographicCamera) viewport.getCamera();
 
-
-
 	}
 
-
 	public void draw() {
-
-		//dibuja el mapa en el fondo
 
 		batch.begin();
 		batch.disableBlending();
@@ -96,13 +83,9 @@ public class PokeTower extends ApplicationAdapter implements Screen {
 
 	}
 
-
-
-
 	@Override
 	public void show() {
 	}
-
 
 	public void movimiento(){
 		enemigo1.mover();
@@ -130,32 +113,29 @@ public class PokeTower extends ApplicationAdapter implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		mundo.step(1f/60f,6,2);
 		draw();
-		torre1.detectEnemy(enemigo1, torre1);
-		torre1.detectEnemy(enemigo1,torre2);
-		torre1.detectEnemy(enemigo1,torre3);
 
-		torre1.detectEnemy(enemigo2, torre1);
-		torre1.detectEnemy(enemigo2,torre2);
-		torre1.detectEnemy(enemigo2,torre3);
+		torre1.detectarEnemigo(enemigo1, torre1);
+		torre1.detectarEnemigo(enemigo1,torre2);
+		torre1.detectarEnemigo(enemigo1,torre3);
 
-		torre1.detectEnemy(enemigo3, torre1);
-		torre1.detectEnemy(enemigo3,torre2);
-		torre1.detectEnemy(enemigo3,torre3);
+		torre1.detectarEnemigo(enemigo2, torre1);
+		torre1.detectarEnemigo(enemigo2,torre2);
+		torre1.detectarEnemigo(enemigo2,torre3);
 
-		torre1.detectEnemy(enemigo4, torre1);
-		torre1.detectEnemy(enemigo4,torre2);
-		torre1.detectEnemy(enemigo4,torre3);
+		torre1.detectarEnemigo(enemigo3, torre1);
+		torre1.detectarEnemigo(enemigo3,torre2);
+		torre1.detectarEnemigo(enemigo3,torre3);
 
+		torre1.detectarEnemigo(enemigo4, torre1);
+		torre1.detectarEnemigo(enemigo4,torre2);
+		torre1.detectarEnemigo(enemigo4,torre3);
 
-
-		//dibuja a las torres
 		batch.begin();
 		torre1.draw(batch);
 		torre2.draw(batch);
 		torre3.draw(batch);
 		batch.end();
 
-		//dibujan a los enemigos
 		batch.begin();
 		enemigo1.draw(batch);
 		enemigo2.draw(batch);
@@ -172,15 +152,9 @@ public class PokeTower extends ApplicationAdapter implements Screen {
 		torre2.update();
 		torre3.update();
 
-
 		cicloJuego();
 
-		//muestra las shaps del mundo
-		//box2d.render(mundo, boxCam.combined);
-
 	}
-
-
 
 	@Override
 	public void hide() {
@@ -190,30 +164,23 @@ public class PokeTower extends ApplicationAdapter implements Screen {
 		contGame--;
 	}
 
-
-
 	public void cicloJuego(){
 		if (contGame == 0) {
 			temp--;
 			if (temp == 0){
 				Gdx.app.exit();
-
 			}
-
 		}
 	}
-
 
 	@Override
 	public void pause() {
 		Gdx.app.exit();
-
 	}
 
 	@Override
 	public void dispose () {
 		box2d.dispose();
 		batch.dispose();
-
 	}
 }

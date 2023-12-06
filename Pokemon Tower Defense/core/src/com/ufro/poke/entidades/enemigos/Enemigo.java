@@ -15,29 +15,26 @@ import com.ufro.poke.entidades.CrearEntidad;
 public abstract class Enemigo implements CrearEntidad {
 
     int state;
-
     protected BodyDef bodyDef;
     public Body bodyEntity;
-
     protected FixtureDef fixtureDef;
     protected PokeTower game;
     protected Sprite sprite;
     protected Texture texture;
-
-    static boolean R= false;
-    static boolean L= false;
-    static boolean D= false;
+    static boolean Derecha = false;
+    static boolean Izquierda = false;
+    static boolean Abajo = false;
     static float X;
     static float Y;
-    protected final float health;
-    protected float vida;
-    public int reSpawn;
+    protected final float vidaMax;
+    protected float vidaActual;
+    public int reaparecer;
 
     public Enemigo(PokeTower game, float x, float y,String s,float h,int rS) {
         this.game=game;
-        this.health=h;
-        this.vida=h;
-        this.reSpawn=rS;
+        this.vidaMax =h;
+        this.vidaActual =h;
+        this.reaparecer =rS;
         this.X=x;
         this.Y=y;
 
@@ -56,23 +53,10 @@ public abstract class Enemigo implements CrearEntidad {
         setBody();
     }
 
-
     public void cargarTextura(String s)throws ExceptionPath {
         texture = new Texture(s);
     }
 
-    /**
-     * Crea un nuevo BodyDef().
-     * Asigna el tipo DynamicBody a bodyDef.
-     * Le asigna la posision del sprite a bodyDef.
-     * Crea body en el mundo.
-     * Crea un nuevo PolygonShape.
-     * Se le asigna las dimenciones al shape y
-     * se asigna la posicion del shape
-     * Se le asigna un escala al sprite
-     *
-     * se genera la shape
-     */
     public void setBody() {
 
         this.state = STATE_NORMAL;
@@ -89,19 +73,15 @@ public abstract class Enemigo implements CrearEntidad {
                 sprite.getHeight() / 2),0);
         sprite.setScale(2);
 
-
         fixtureDef=new FixtureDef();
         fixtureDef.shape=shape;
         fixtureDef.density=0;
         fixtureDef.isSensor=true;
 
-
         bodyEntity.createFixture(fixtureDef);
 
         shape.dispose();
     }
-
-    //medodo que dibuja al sprite
 
     public void draw(SpriteBatch batch){
         sprite.draw(batch);
@@ -109,20 +89,17 @@ public abstract class Enemigo implements CrearEntidad {
 
     public void update(){
 
-        /*batch.begin();
-        batch.draw(spEnemy.getKeyFrame(statetime),pos.x,pos.y,120,120);
-        batch.end();*/
 
-        if (R==true){
+        if (Derecha ==true){
             bodyEntity.applyLinearImpulse(
                     new Vector2(200f,0),
                     bodyEntity.getLocalCenter(),true);
 
-        }else if (L==true) {
+        }else if (Izquierda ==true) {
             bodyEntity.applyLinearImpulse(
                     new Vector2(-200f,0),
                     bodyEntity.getLocalCenter(),true);
-        } else if (D==true) {
+        } else if (Abajo ==true) {
             bodyEntity.applyLinearImpulse(
                     new Vector2(0, -200f),
                     bodyEntity.getLocalCenter(), true);
@@ -136,54 +113,50 @@ public abstract class Enemigo implements CrearEntidad {
 
     public void mover() {
 
-        //intento de movimineto de el enemigo
-
         if (this.bodyEntity.getPosition().x <= 650f) {
-            R = true;
+            Derecha = true;
 
         } else if (this.bodyEntity.getPosition().x == 650) {
-            R = false;
+            Derecha = false;
 
         } else if (this.bodyEntity.getPosition().y >= 150) {
-            R = false;
-            D = true;
+            Derecha = false;
+            Abajo = true;
         } else if (this.bodyEntity.getPosition().x <= 1200) {
-            R = true;
-            D = false;
+            Derecha = true;
+            Abajo = false;
         }else if (this.bodyEntity.getPosition().x > 1210){
 
-            this.eliminarEnemigo(this);
+            this.reaparecerEnemigo(this);
         }else{
-            sacarDelMapa();
+            eliminarEnemigo();
         }
 
     }
 
-    //traslada al enemigo
-    public void eliminarEnemigo(Enemigo entity){
+    public void reaparecerEnemigo(Enemigo entity){
 
         bodyEntity.setLinearVelocity(0,0);
         bodyEntity.setTransform(-150,620,0);
 
     }
-    public void sacarDelMapa() {
+    public void eliminarEnemigo() {
         bodyEntity.setLinearVelocity(0,0);
         bodyEntity.setTransform(-1000,-1000,0);
     }
 
-    //disminuye la vida del enemigo
-    public void hacerDaño(){
-        this.vida--;
-        if (this.vida<=0){
-            this.reSpawn--;
+    public void recibirDaño(){
+        this.vidaActual--;
+        if (this.vidaActual <=0){
+            this.reaparecer--;
 
-            this.vida=health;
+            this.vidaActual = vidaMax;
             game.descVida();
-            if (this.reSpawn==0){
-                this.sacarDelMapa();
+            if (this.reaparecer ==0){
+                this.eliminarEnemigo();
 
             }else {
-                this.eliminarEnemigo(this);
+                this.reaparecerEnemigo(this);
             }
         }
     }

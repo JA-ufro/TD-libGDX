@@ -23,19 +23,6 @@ public abstract class Torre implements CrearEntidad {
     protected Texture texture;
     protected float rad=300;
 
-
-
-
-    /**
-     * constructor de Torre.
-     * Asigna una imagen a una textura y luego una textura a un sprite.
-     * Define la posicion del sprite.
-     * Genera un cuerpo usando el metodo setBody().
-     *
-     * @param game
-     * @param x
-     * @param y
-     */
     public Torre(PokeTower game, float x, float y,String textura) {
         this.game = game;
 
@@ -54,18 +41,6 @@ public abstract class Torre implements CrearEntidad {
     public void cargarTextura(String textura) throws ExceptionPath {
         texture = new Texture(textura);
     }
-
-    /**
-     * Crea un nuevo BodyDef().
-     * Asigna el tipo StaticBody a bodyDef.
-     * Le asigna la posision del sprite a bodyDef.
-     * Crea body en el mundo.
-     * Crea un nuevo CircleShape.
-     * Se le asigna las dimenciones al shape.
-     * Se le asigna un escala al sprite.
-     *
-     * se genera la shape
-     */
 
     public void setBody() {
         this.state = STATE_NORMAL;
@@ -93,8 +68,6 @@ public abstract class Torre implements CrearEntidad {
 
     }
 
-
-    //dibuja al sprite
     public void draw(SpriteBatch batch){
         sprite.draw(batch);
 
@@ -111,7 +84,7 @@ public abstract class Torre implements CrearEntidad {
                 bodyTower.getPosition().y);
     }
 
-    public void detectEnemy(Enemigo enemigo, Torre torre){
+    public void detectarEnemigo(Enemigo enemigo, Torre torre){
         float x1 = enemigo.bodyEntity.getPosition().x;
         float y1 = enemigo.bodyEntity.getPosition().y;
 
@@ -124,7 +97,7 @@ public abstract class Torre implements CrearEntidad {
 
         int distance = (int)(Math.hypot(x,y));
         if (distance<=torre.getRad()){
-            enemigo.hacerDaño();
+            enemigo.recibirDaño();
 
         }
     }

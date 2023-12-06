@@ -11,7 +11,6 @@ public class MenuPrincipal extends JPanel {
         ImageIcon icon = new ImageIcon("assets/interfaz/tituloPoke.png");
         ImageIcon fondo = new ImageIcon("assets/interfaz/fondoPoke.png");
 
-
         JLabel titulo = new JLabel(icon);
         JLabel back = new JLabel(fondo);
 

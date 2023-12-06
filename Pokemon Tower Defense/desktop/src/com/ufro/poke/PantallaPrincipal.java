@@ -11,64 +11,45 @@ import java.awt.event.ActionListener;
 
 public class PantallaPrincipal extends JFrame {
 
-    //Creamos los objetos Panel menu principal y Panel aboutUs.
     private MenuPrincipal menuPrincipal;
     private com.ufro.poke.pantallas.Integrantes integrantes;
-    private JuegoTerminado finDeJuego;
-
-    //Creamos la ventana principal y panel principal.
+    private JuegoTerminado juegoTerminado;
     private JPanel pnPrincipal;
-
-    //Creamos el gestor de paneles.
     private CardLayout GestordePaneles;
-
-    //Creamos los botones.
-    JButton Play;
+    JButton Jugar;
     JButton Integrantes;
-    JButton Back;
     JButton Regresar;
-    JButton VolverAJugar;
+    JButton VolverAMenu;
+    JButton Reintentar;
 
-    //Constructor clase PantallaPrincipal
     public PantallaPrincipal() {
 
-        //Inicializamos los paneles.
         menuPrincipal = new MenuPrincipal();
 
-
         integrantes = new Integrantes();
-        finDeJuego = new JuegoTerminado();
+        juegoTerminado = new JuegoTerminado();
 
-        //Inicializamos el carLayout y lo agregamos al JFrame.
         GestordePaneles = new CardLayout();
         initBotones();
-
-
         initJframe();
-
         initJpanel();
-
-
-
-
 
     }
 
     private void initJpanel(){
-        //Inicializamos el panel principal y agregamos "Menu principal y About us"
+
         pnPrincipal = new JPanel();
         pnPrincipal.setLayout(GestordePaneles);
         pnPrincipal.add(menuPrincipal, "Menu Principal");
-        pnPrincipal.add(integrantes, "About Us");
-        pnPrincipal.add(finDeJuego,"Fin del Juego");
+        pnPrincipal.add(integrantes, "Sobre Nosotros");
+        pnPrincipal.add(juegoTerminado,"Fin del Juego");
         pnPrincipal.setVisible(true);
 
-        //Agregamos los paneles a la ventana.
         this.add(pnPrincipal);
     }
 
     private void initJframe(){
-        //Inicializamos el Jframe.
+
         setTitle("PokeTowerDefence");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1280,720);
@@ -78,45 +59,36 @@ public class PantallaPrincipal extends JFrame {
     }
 
     private void initBotones(){
-        Play = new JButton(new ImageIcon("assets/interfaz/jugarPoke.png"));
+        Jugar = new JButton(new ImageIcon("assets/interfaz/jugarPoke.png"));
         Integrantes = new JButton(new ImageIcon("assets/interfaz/sobrenosotrosPoke.png"));
-        Back = new JButton(new ImageIcon("assets/interfaz/atrasPoke.png"));
-        Regresar = new JButton(new ImageIcon("assets/interfaz/menuPoke.png"));
-        VolverAJugar = new JButton(new ImageIcon("assets/interfaz/reintentarPoke.png"));
+        Regresar = new JButton(new ImageIcon("assets/interfaz/atrasPoke.png"));
+        VolverAMenu = new JButton(new ImageIcon("assets/interfaz/menuPoke.png"));
+        Reintentar = new JButton(new ImageIcon("assets/interfaz/reintentarPoke.png"));
 
-        //Definimos la posicion de los botones.
-        Play.setBounds(480,350,270,145);
+        Jugar.setBounds(480,350,270,145);
         Integrantes.setBounds(300,520,690,110);
-        Back.setBounds(10,150,290,130);
+        Regresar.setBounds(10,150,290,130);
 
-        Regresar.setBounds(330,350,620,140);
-        VolverAJugar.setBounds(400,500,500,120);
+        VolverAMenu.setBounds(330,350,620,140);
+        Reintentar.setBounds(400,500,500,120);
 
-
-
-
-
-        //Los definimos como "Visibles"
-        Play.setVisible(true);
+        Jugar.setVisible(true);
         Integrantes.setVisible(true);
-        Back.setVisible(true);
         Regresar.setVisible(true);
-        VolverAJugar.setVisible(true);
+        VolverAMenu.setVisible(true);
+        Reintentar.setVisible(true);
 
-
-        //Agregamos los botones a sus paneles respectivos.
-        menuPrincipal.add(Play);
+        menuPrincipal.add(Jugar);
         menuPrincipal.add(Integrantes);
-        integrantes.add(Back);
-        finDeJuego.add(Regresar);
-        finDeJuego.add(VolverAJugar);
+        integrantes.add(Regresar);
+        juegoTerminado.add(VolverAMenu);
+        juegoTerminado.add(Reintentar);
 
-        //agregamos los botones a actionListener.
-        Play.addActionListener(new AccionAlternaPanel());
+        Jugar.addActionListener(new AccionAlternaPanel());
         Integrantes.addActionListener(new AccionAlternaPanel());
-        Back.addActionListener(new AccionAlternaPanel());
         Regresar.addActionListener(new AccionAlternaPanel());
-        VolverAJugar.addActionListener(new AccionAlternaPanel());
+        VolverAMenu.addActionListener(new AccionAlternaPanel());
+        Reintentar.addActionListener(new AccionAlternaPanel());
 
     }
 
@@ -124,18 +96,18 @@ public class PantallaPrincipal extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton boton = (JButton) e.getSource();
-            //Según el botón, pedimos al CardLayout que muestre un panel u otro
+
             if (boton.equals(Integrantes)) {
 
-                GestordePaneles.show(pnPrincipal, "About Us");
+                GestordePaneles.show(pnPrincipal, "Sobre Nosotros");
 
             }
-            if (boton.equals(Back)){
+            if (boton.equals(Regresar)){
 
                 GestordePaneles.show(pnPrincipal,"Menu Principal");
 
             }
-            if (boton.equals(Play)){
+            if (boton.equals(Jugar)){
 
                 setVisible(false);
 
@@ -143,10 +115,10 @@ public class PantallaPrincipal extends JFrame {
                 GestordePaneles.show(pnPrincipal,"Fin del Juego");
                 setVisible(true);
             }
-            if (boton.equals(Regresar)){
+            if (boton.equals(VolverAMenu)){
                 GestordePaneles.show(pnPrincipal,"Menu Principal");
             }
-            if (boton.equals(VolverAJugar)){
+            if (boton.equals(Reintentar)){
                 new DesktopLauncher();
                 GestordePaneles.show(pnPrincipal,"Fin del Juego");
                 setVisible(true);
