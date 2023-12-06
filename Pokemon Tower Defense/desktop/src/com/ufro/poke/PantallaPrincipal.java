@@ -85,12 +85,12 @@ public class PantallaPrincipal extends JFrame {
         VolverAJugar = new JButton(new ImageIcon("assets/interfaz/reintentarPoke.png"));
 
         //Definimos la posicion de los botones.
-        Play.setBounds(220,450,270,145);
-        Integrantes.setBounds(50,600,690,110);
-        Back.setBounds(250,650,290,130);
+        Play.setBounds(480,350,270,145);
+        Integrantes.setBounds(300,520,690,110);
+        Back.setBounds(10,150,290,130);
 
-        Regresar.setBounds(150,450,620,140);
-        VolverAJugar.setBounds(200,600,500,120);
+        Regresar.setBounds(330,350,620,140);
+        VolverAJugar.setBounds(400,500,500,120);
 
 
 

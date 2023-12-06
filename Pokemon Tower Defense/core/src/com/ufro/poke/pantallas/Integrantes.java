@@ -14,7 +14,7 @@ public class Integrantes extends JPanel{
 
         back.setBounds(0,0,1280,720);
         back.setVisible(true);
-        titulo.setBounds(60,40,730,610);
+        titulo.setBounds(270,40,730,610);
         titulo.setVisible(true);
 
         add(titulo);

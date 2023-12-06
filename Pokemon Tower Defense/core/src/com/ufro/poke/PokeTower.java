@@ -23,7 +23,7 @@ import com.ufro.poke.entidades.torres.Torre3;
 
 public class PokeTower extends ApplicationAdapter implements Screen {
 	private static final float WORLD_WHIDTH=1280;
-	private static final float WORLD_HEIGHT=960;
+	private static final float WORLD_HEIGHT=720;
 
 	private Camera cam;
 	private SpriteBatch batch;
@@ -59,9 +59,9 @@ public class PokeTower extends ApplicationAdapter implements Screen {
 
 		//se instancian el enemigo y la torre
 
-		enemigo1 = new Enemigo1(this,100,620f,"assets/entidades/enemigos/enemigo1.png",200,3);
+		enemigo1 = new Enemigo1(this,50,620f,"assets/entidades/enemigos/enemigo1.png",160,3);
 		enemigo2 = new Enemigo2(this, -100f,620f,"assets/entidades/enemigos/enemigo2.png",350,3);
-		enemigo3 = new Enemigo3(this,-300,620f,"assets/entidades/enemigos/enemigo3.png",500,3);
+		enemigo3 = new Enemigo3(this,-300,620f,"assets/entidades/enemigos/enemigo3.png",400,3);
 		enemigo4 = new Enemigo4(this, -1600,620f,"assets/entidades/enemigos/enemigo4.png",940,1);
 
 		torre1 = new Torre1(this,560, 505,"assets/entidades/torres/torre1.png");

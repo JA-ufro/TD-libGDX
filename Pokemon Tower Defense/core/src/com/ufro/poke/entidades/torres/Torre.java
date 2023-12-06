@@ -14,7 +14,6 @@ import com.ufro.poke.entidades.enemigos.Enemigo;
 
 public abstract class Torre implements CrearEntidad {
 
-    static final int STATE_NORMAL=0;
     int state;
     protected BodyDef bodyDef;
     public Body bodyTower;

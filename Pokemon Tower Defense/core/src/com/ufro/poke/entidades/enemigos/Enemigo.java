@@ -13,7 +13,6 @@ import com.ufro.poke.PokeTower;
 import com.ufro.poke.entidades.CrearEntidad;
 
 public abstract class Enemigo implements CrearEntidad {
-    static final int STATE_NORMAL=0;
 
     int state;
 

@@ -17,7 +17,7 @@ public class MenuPrincipal extends JPanel {
 
         back.setBounds(0,0,1280,720);
         back.setVisible(true);
-        titulo.setBounds(60,50,680,240);
+        titulo.setBounds(300,50,680,240);
         titulo.setVisible(true);
 
         add(titulo);
